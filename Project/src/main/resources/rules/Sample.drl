@@ -1,0 +1,828 @@
+package com.sample
+
+import org.kie.api.runtime.KieRuntime
+import java.util.List
+import java.util.Arrays;
+import java.util.ArrayList
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.sample.Statment;
+
+global JFrame frame
+
+rule "What SF series should I watch on Netflix?"
+    when
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("SciFi");
+    answers.add("Fantasy");
+    answers.add("Horror");
+    answers.add("Slipstream");
+    Statment answer = askQuestion(frame, "What SF series should I watch on Netflix?", answers);
+    insert (answer);
+end
+
+rule "What SF series should I watch on Netflix? - SciFi - Like anthologies?"
+    when
+    Statment(question == "What SF series should I watch on Netflix?" && answer == "SciFi")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Like anthologies?", answers);
+    insert (answer);
+end
+
+rule "Like anthologies? - Yep - The Outer"
+    when
+    Statment(question == "Like anthologies?" && answer == "Yep")
+    then
+    finalAnswer(frame, "The Outer");
+end
+
+
+rule "Like anthologies? - Nope - Space Opera or close to home?"
+    when
+    Statment(question == "Like anthologies?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Home");
+    answers.add("Stars");
+    Statment answer = askQuestion(frame, "Space Opera or close to home?", answers);
+    insert (answer);
+end
+
+rule "Space Opera or close to home? - Home - Friendlies or invaders?"
+    when
+    Statment(question == "Space Opera or close to home?" && answer == "Home")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Friends");
+    answers.add("Invaders");
+    Statment answer = askQuestion(frame, "Friendlies or invaders?", answers);
+    insert (answer);
+end
+
+rule "Friendlies or invaders? - Friends - Alien Nation"
+    when
+    Statment(question == "Friendlies or invaders?" && answer == "Friends")
+    then
+    finalAnswer(frame, "Alien Nation");
+end
+
+
+rule "Friendlies or invaders? - Invaders - Animated or Live Action?"
+    when
+    Statment(question == "Friendlies or invaders?" && answer == "Invaders")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Live");
+    answers.add("Toons");
+    Statment answer = askQuestion(frame, "Animated or Live Action? ", answers);
+    insert (answer);
+end
+
+rule "Animated or Live Action? - Live - V"
+    when
+    Statment(question == "Animated or Live Action? " && answer == "Live")
+    then
+    finalAnswer(frame, "V");
+end
+
+
+rule "Animated or Live Action? - Toons - Volume 1"
+    when
+    Statment(question == "Animated or Live Action? " && answer == "Toons")
+    then
+    finalAnswer(frame, "Volume 1");
+end
+
+
+rule "Space Opera or close to home? - Stars - Comedy?"
+    when
+    Statment(question == "Space Opera or close to home?" && answer == "Stars")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Comedy?", answers);
+    insert (answer);
+end
+
+rule "Comedy? - Yep - British or American?"
+    when
+    Statment(question == "Comedy?" && answer == "Yep")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("UK");
+    answers.add("USA");
+    Statment answer = askQuestion(frame, "British or American?", answers);
+    insert (answer);
+end
+
+rule "British or American? - UK - Red Dwarf 1"
+    when
+    Statment(question == "British or American?" && answer == "UK")
+    then
+    finalAnswer(frame, "Red Dwarf 1");
+end
+
+
+rule "British or American? - USA - Futurama"
+    when
+    Statment(question == "British or American?" && answer == "USA")
+    then
+    finalAnswer(frame, "Futurama");
+end
+
+
+rule "Comedy? - Nope - Trekkie?"
+    when
+    Statment(question == "Comedy?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep. But seen em all 1000x");
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Trekkie?", answers);
+    insert (answer);
+end
+
+rule "Trekkie? - Yep. But seen em all 1000x - Earth Final Conflict"
+    when
+    Statment(question == "Trekkie?" && answer == "Yep. But seen em all 1000x")
+    then
+    finalAnswer(frame, "Earth Final Conflict");
+end
+
+
+rule "Trekkie? - Yep - Will Wheaton?"
+    when
+    Statment(question == "Trekkie?" && answer == "Yep")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Woot");
+    answers.add("NOOOO!");
+    Statment answer = askQuestion(frame, "Will Wheaton?", answers);
+    insert (answer);
+end
+
+rule "Will Wheaton? - Woot - Star Trek The Next Generation"
+    when
+    Statment(question == "Will Wheaton?" && answer == "Woot")
+    then
+    finalAnswer(frame, "Star Trek The Next Generation");
+end
+
+
+rule "Will Wheaton? - NOOOO! - What do you study?"
+    when
+    Statment(question == "Will Wheaton?" && answer == "NOOOO!")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Polisci");
+    answers.add("Womens Lib");
+    answers.add("Sociology");
+    answers.add("History");
+    Statment answer = askQuestion(frame, "What do you study?", answers);
+    insert (answer);
+end
+
+rule "What do you study? - Polisci - StarTrek: Deep Space Nine"
+    when
+    Statment(question == "What do you study?" && answer == "Polisci")
+    then
+    finalAnswer(frame, "StarTrek: Deep Space Nine");
+end
+
+
+rule "What do you study? - Womens Lib - Star Trek Voyager"
+    when
+    Statment(question == "What do you study?" && answer == "Womens Lib")
+    then
+    finalAnswer(frame, "Star Trek Voyager");
+end
+
+
+rule "What do you study? - Sociology - Star Trek The Original Series"
+    when
+    Statment(question == "What do you study?" && answer == "Sociology")
+    then
+    finalAnswer(frame, "Star Trek The Original Series");
+end
+
+
+rule "What do you study? - History - Star Trek Enterprise"
+    when
+    Statment(question == "What do you study?" && answer == "History")
+    then
+    finalAnswer(frame, "Star Trek Enterprise");
+end
+
+
+rule "Trekkie? - Nope - Like westerns?"
+    when
+    Statment(question == "Trekkie?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Like westerns?", answers);
+    insert (answer);
+end
+
+rule "Like westerns? - Yep - Firefly"
+    when
+    Statment(question == "Like westerns?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Firefly");
+end
+
+
+rule "Like westerns? - Nope - Time/Space Gateways?"
+    when
+    Statment(question == "Like westerns?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Time/Space Gateways?", answers);
+    insert (answer);
+end
+
+rule "Time/Space Gateways? - Yep - British or American?"
+    when
+    Statment(question == "Time/Space Gateways?" && answer == "Yep")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("USA");
+    answers.add("UK");
+    Statment answer = askQuestion(frame, "British or American? ", answers);
+    insert (answer);
+end
+
+rule "British or American? - USA - StarGate Sage 1"
+    when
+    Statment(question == "British or American? " && answer == "USA")
+    then
+    finalAnswer(frame, "StarGate Sage 1");
+end
+
+
+rule "British or American? - UK - Doctor Who The Complete First Series"
+    when
+    Statment(question == "British or American? " && answer == "UK")
+    then
+    finalAnswer(frame, "Doctor Who The Complete First Series");
+end
+
+
+rule "Time/Space Gateways? - Nope - Classic or Modern?"
+    when
+    Statment(question == "Time/Space Gateways?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Modern");
+    answers.add("Classic");
+    Statment answer = askQuestion(frame, "Classic or Modern?", answers);
+    insert (answer);
+end
+
+rule "Classic or Modern? - Modern - Battlestar Galatica Season One"
+    when
+    Statment(question == "Classic or Modern?" && answer == "Modern")
+    then
+    finalAnswer(frame, "Battlestar Galatica Season One");
+end
+
+
+rule "Classic or Modern? - Classic - Battlestar Galatica The Movie"
+    when
+    Statment(question == "Classic or Modern?" && answer == "Classic")
+    then
+    finalAnswer(frame, "Battlestar Galatica The Movie");
+end
+
+
+rule "What SF series should I watch on Netflix? - Fantasy - Urban or Period?"
+    when
+    Statment(question == "What SF series should I watch on Netflix?" && answer == "Fantasy")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Urban");
+    answers.add("Period");
+    Statment answer = askQuestion(frame, "Urban or Period?", answers);
+    insert (answer);
+end
+
+rule "Urban or Period? - Urban - Like Superheroes?"
+    when
+    Statment(question == "Urban or Period?" && answer == "Urban")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Nope");
+    answers.add("Yep");
+    Statment answer = askQuestion(frame, "Like Superheroes?", answers);
+    insert (answer);
+end
+
+rule "Like Superheroes? - Nope - How about mythology?"
+    when
+    Statment(question == "Like Superheroes?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Nope");
+    answers.add("Yep");
+    Statment answer = askQuestion(frame, "How about mythology?", answers);
+    insert (answer);
+end
+
+rule "How about mythology? - Nope - Dresden"
+    when
+    Statment(question == "How about mythology?" && answer == "Nope")
+    then
+    finalAnswer(frame, "Dresden");
+end
+
+
+rule "How about mythology? - Yep - Highlander Season One"
+    when
+    Statment(question == "How about mythology?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Highlander Season One");
+end
+
+
+rule "Like Superheroes? - Yep - Animated or Live Action?"
+    when
+    Statment(question == "Like Superheroes?" && answer == "Yep")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Live");
+    answers.add("Toons");
+    Statment answer = askQuestion(frame, " Animated or Live Action?", answers);
+    insert (answer);
+end
+
+rule "Animated or Live Action? - Live - Smallvile"
+    when
+    Statment(question == " Animated or Live Action?" && answer == "Live")
+    then
+    finalAnswer(frame, "Smallvile");
+end
+
+
+rule "Animated or Live Action? - Toons - The Tick"
+    when
+    Statment(question == " Animated or Live Action?" && answer == "Toons")
+    then
+    finalAnswer(frame, "The Tick");
+end
+
+
+rule "Urban or Period? - Period - Myths or Legends?"
+    when
+    Statment(question == "Urban or Period?" && answer == "Period")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Myths");
+    answers.add("Legends");
+    Statment answer = askQuestion(frame, "Myths or Legends?", answers);
+    insert (answer);
+end
+
+rule "Myths or Legends? - Myths - Buff Dudes or Hot Girls?"
+    when
+    Statment(question == "Myths or Legends?" && answer == "Myths")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Dudes");
+    answers.add("Ladies");
+    Statment answer = askQuestion(frame, "Buff Dudes or Hot Girls?", answers);
+    insert (answer);
+end
+
+rule "Buff Dudes or Hot Girls? - Dudes - Hercules"
+    when
+    Statment(question == "Buff Dudes or Hot Girls?" && answer == "Dudes")
+    then
+    finalAnswer(frame, "Hercules");
+end
+
+
+rule "Buff Dudes or Hot Girls? - Ladies - Xena"
+    when
+    Statment(question == "Buff Dudes or Hot Girls?" && answer == "Ladies")
+    then
+    finalAnswer(frame, "Xena");
+end
+
+
+rule "Myths or Legends? - Legends - Animated or Live Action?"
+    when
+    Statment(question == "Myths or Legends?" && answer == "Legends")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Toons");
+    answers.add("Live");
+    Statment answer = askQuestion(frame, "Animated or Live Action?", answers);
+    insert (answer);
+end
+
+rule "Animated or Live Action? - Toons - Do you have a Gameboy?"
+    when
+    Statment(question == "Animated or Live Action?" && answer == "Toons")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Do you have a Gameboy?", answers);
+    insert (answer);
+end
+
+rule "Do you have a Gameboy? - Yep - Pokemon"
+    when
+    Statment(question == "Do you have a Gameboy?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Pokemon");
+end
+
+
+rule "Do you have a Gameboy? - Nope - Avatar"
+    when
+    Statment(question == "Do you have a Gameboy?" && answer == "Nope")
+    then
+    finalAnswer(frame, "Avatar");
+end
+
+
+rule "Animated or Live Action? - Live - Like lots of nudity?"
+    when
+    Statment(question == "Animated or Live Action?" && answer == "Live")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Like lots of nudity?", answers);
+    insert (answer);
+end
+
+rule "Like lots of nudity? - Yep - Spartacus"
+    when
+    Statment(question == "Like lots of nudity?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Spartacus");
+end
+
+
+rule "Like lots of nudity? - Nope - Legend of the seeker"
+    when
+    Statment(question == "Like lots of nudity?" && answer == "Nope")
+    then
+    finalAnswer(frame, "Legend of the seeker");
+end
+
+
+rule "What SF series should I watch on Netflix? - Horror - Vampires or Zombies?"
+    when
+    Statment(question == "What SF series should I watch on Netflix?" && answer == "Horror")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Zombies");
+    answers.add("Neither");
+    answers.add("Vampires");
+    Statment answer = askQuestion(frame, "Vampires or Zombies?", answers);
+    insert (answer);
+end
+
+rule "Vampires or Zombies? - Zombies - The Walking Dead"
+    when
+    Statment(question == "Vampires or Zombies?" && answer == "Zombies")
+    then
+    finalAnswer(frame, "The Walking Dead");
+end
+
+
+rule "Vampires or Zombies? - Neither - Like anthologies?"
+    when
+    Statment(question == "Vampires or Zombies?" && answer == "Neither")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Nope");
+    answers.add("Yep");
+    Statment answer = askQuestion(frame, "Like anthologies? ", answers);
+    insert (answer);
+end
+
+rule "Like anthologies? - Nope - Charmed"
+    when
+    Statment(question == "Like anthologies? " && answer == "Nope")
+    then
+    finalAnswer(frame, "Charmed");
+end
+
+
+rule "Like anthologies? - Yep - Psychological or Gory?"
+    when
+    Statment(question == "Like anthologies? " && answer == "Yep")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Psycho");
+    answers.add("Gory");
+    Statment answer = askQuestion(frame, "Psychological or Gory?", answers);
+    insert (answer);
+end
+
+rule "Psychological or Gory? - Psycho - The twilight zone"
+    when
+    Statment(question == "Psychological or Gory?" && answer == "Psycho")
+    then
+    finalAnswer(frame, "The twilight zone");
+end
+
+
+rule "Psychological or Gory? - Gory - Tales from the Crypt"
+    when
+    Statment(question == "Psychological or Gory?" && answer == "Gory")
+    then
+    finalAnswer(frame, "Tales from the Crypt");
+end
+
+
+rule "Vampires or Zombies? - Vampires - How old are you?"
+    when
+    Statment(question == "Vampires or Zombies?" && answer == "Vampires")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("<16");
+    answers.add(">16");
+    Statment answer = askQuestion(frame, "How old are you?", answers);
+    insert (answer);
+end
+
+rule "How old are you? - <16 - the Vampire Diaries"
+    when
+    Statment(question == "How old are you?" && answer == "<16")
+    then
+    finalAnswer(frame, "the Vampire Diaries");
+end
+
+
+rule "How old are you? - >16 - SFW or NSFW?"
+    when
+    Statment(question == "How old are you?" && answer == ">16")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("SFW");
+    answers.add("NSFW");
+    Statment answer = askQuestion(frame, "SFW or NSFW?", answers);
+    insert (answer);
+end
+
+rule "SFW or NSFW? - SFW - Been buffy?"
+    when
+    Statment(question == "SFW or NSFW?" && answer == "SFW")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Nope");
+    answers.add("Yep");
+    Statment answer = askQuestion(frame, "Been buffy?", answers);
+    insert (answer);
+end
+
+rule "Been buffy? - Nope - Buffy"
+    when
+    Statment(question == "Been buffy?" && answer == "Nope")
+    then
+    finalAnswer(frame, "Buffy");
+end
+
+
+rule "Been buffy? - Yep - Angel"
+    when
+    Statment(question == "Been buffy?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Angel");
+end
+
+
+rule "SFW or NSFW? - NSFW - British or American?"
+    when
+    Statment(question == "SFW or NSFW?" && answer == "NSFW")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("UK");
+    answers.add("USA");
+    Statment answer = askQuestion(frame, " British or American?", answers);
+    insert (answer);
+end
+
+rule "British or American? - UK - Being Human"
+    when
+    Statment(question == " British or American?" && answer == "UK")
+    then
+    finalAnswer(frame, "Being Human");
+end
+
+
+rule "British or American? - USA - True Blood"
+    when
+    Statment(question == " British or American?" && answer == "USA")
+    then
+    finalAnswer(frame, "True Blood");
+end
+
+
+rule "What SF series should I watch on Netflix? - Slipstream - Action or Drama?"
+    when
+    Statment(question == "What SF series should I watch on Netflix?" && answer == "Slipstream")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Action");
+    answers.add("Drama");
+    Statment answer = askQuestion(frame, "Action or Drama?", answers);
+    insert (answer);
+end
+
+rule "Action or Drama? - Action - Biopunk or Steampunk?"
+    when
+    Statment(question == "Action or Drama?" && answer == "Action")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Steampunk");
+    answers.add("Biopunk");
+    Statment answer = askQuestion(frame, "Biopunk or Steampunk?", answers);
+    insert (answer);
+end
+
+rule "Biopunk or Steampunk? - Steampunk - Sanctuary"
+    when
+    Statment(question == "Biopunk or Steampunk?" && answer == "Steampunk")
+    then
+    finalAnswer(frame, "Sanctuary");
+end
+
+
+rule "Biopunk or Steampunk? - Biopunk - Whedon or Cameron?"
+    when
+    Statment(question == "Biopunk or Steampunk?" && answer == "Biopunk")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Whedon");
+    answers.add("Cameron");
+    Statment answer = askQuestion(frame, "Whedon or Cameron?", answers);
+    insert (answer);
+end
+
+rule "Whedon or Cameron? - Whedon - Dollhouse"
+    when
+    Statment(question == "Whedon or Cameron?" && answer == "Whedon")
+    then
+    finalAnswer(frame, "Dollhouse");
+end
+
+
+rule "Whedon or Cameron? - Cameron - Cameron"
+    when
+    Statment(question == "Whedon or Cameron?" && answer == "Cameron")
+    then
+    finalAnswer(frame, "Cameron");
+end
+
+
+rule "Action or Drama? - Drama - Have you seen Xfiles?"
+    when
+    Statment(question == "Action or Drama?" && answer == "Drama")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    answers.add("Hated it");
+    Statment answer = askQuestion(frame, "Have you seen Xfiles?", answers);
+    insert (answer);
+end
+
+rule "Have you seen Xfiles? - Yep - Fringe"
+    when
+    Statment(question == "Have you seen Xfiles?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Fringe");
+end
+
+
+rule "Have you seen Xfiles? - Nope - The X Files"
+    when
+    Statment(question == "Have you seen Xfiles?" && answer == "Nope")
+    then
+    finalAnswer(frame, "The X Files");
+end
+
+
+rule "Have you seen Xfiles? - Hated it - Are you Ok with being let down?"
+    when
+    Statment(question == "Have you seen Xfiles?" && answer == "Hated it")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Yep");
+    answers.add("Nope");
+    Statment answer = askQuestion(frame, "Are you Ok with being let down?", answers);
+    insert (answer);
+end
+
+rule "Are you Ok with being let down? - Yep - Lost"
+    when
+    Statment(question == "Are you Ok with being let down?" && answer == "Yep")
+    then
+    finalAnswer(frame, "Lost");
+end
+
+
+rule "Are you Ok with being let down? - Nope - How do you geel about Scott Bakula?"
+    when
+    Statment(question == "Are you Ok with being let down?" && answer == "Nope")
+    then
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add("Who");
+    answers.add("Im a Fan");
+    Statment answer = askQuestion(frame, "How do you geel about Scott Bakula?", answers);
+    insert (answer);
+end
+
+rule "How do you geel about Scott Bakula? - Who - Warehouse 13"
+    when
+    Statment(question == "How do you geel about Scott Bakula?" && answer == "Who")
+    then
+    finalAnswer(frame, "Warehouse 13");
+end
+
+
+rule "How do you geel about Scott Bakula? - Im a Fan - Quantum Leap"
+    when
+    Statment(question == "How do you geel about Scott Bakula?" && answer == "Im a Fan")
+    then
+    finalAnswer(frame, "Quantum Leap");
+end
+
+
+function Statment askQuestion(JFrame frame, String Question, ArrayList Answers) {
+	
+   class Listener implements ItemListener {
+        private Statment answer;
+        private String select;
+        public Listener(Statment answer, String select) {
+            this.answer = answer;
+            this.select = select;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                answer.setStatment(select);
+            }
+        }
+    }
+    
+    
+  	final Statment answer = new Statment(Question, (String) Answers.get(0));
+    ArrayList <JRadioButton> Buttons = new ArrayList<>();
+	
+    for (int i = 0; i < Answers.size(); i++) {
+        String text = (String) Answers.get(i);
+        JRadioButton button = new JRadioButton(text);
+        Listener listener = new Listener(answer, text);
+        button.addItemListener(listener);
+        Buttons.add(button);
+    }
+
+    final JPanel panel = new JPanel(new GridLayout(0,1));
+	panel.add(new JLabel(Question));
+    ButtonGroup group = new ButtonGroup();
+    for (int i = 0; i < Buttons.size(); i++) {
+        group.add(Buttons.get(i));
+        panel.add(Buttons.get(i));
+    }
+    
+    JOptionPane.showConfirmDialog(frame, panel, "Choose what you like", 
+    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE); 
+	
+	
+    return answer;
+}
+
+
+
+function void finalAnswer(JFrame frame, String answer) {
+    final JPanel panel = new JPanel(new GridLayout(0, 1));
+    panel.add(new JLabel("The movie you should watch: "));
+    JLabel tytul = new JLabel(answer);
+    tytul.setFont(new Font("Serif", Font.BOLD, 25));
+    panel.add(tytul);
+    
+    JDialog dialog = new JDialog(frame, "Your Film");
+    dialog.add(panel);
+    dialog.setSize(400,100);
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+    
+}
